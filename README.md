@@ -9,7 +9,7 @@ The main script to run is logic_minimizer/logic_minimizer.py.
 
 It requires specifying a config file as a command line argument.
 
-The config file can have an absolute path or relative to current directory.
+The config file can have an absolute path or a path relative to current directory.
 
 ## Inputs required from the user ##
 1. Save a config file
@@ -32,7 +32,7 @@ The config file can have an absolute path or relative to current directory.
 Listed in dependencies.txt
 
 Notes:
-* The pyeda package containing the espresso minimization algorithm requires a python C++ extension.
+* The pyeda package containing the espresso minimization algorithm requires a C extension for python.
     * An easy way to install this package without worrying about the extension is to download the wheel from Christoph Gohlke's website:
     * https://www.lfd.uci.edu/~gohlke/pythonlibs/
     * My version is Windows 32-bit, with python 3.7.
