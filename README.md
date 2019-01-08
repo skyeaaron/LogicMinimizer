@@ -1,10 +1,14 @@
 ## Run the script ##
 Example:
+
 cd logic_minimizer
+
 python logic_minimizer.py ../SampleFiles/SampleLogicFile_Config.yml
 
 The main script to run is logic_minimizer/logic_minimizer.py.
+
 It requires specifying a config file as a command line argument.
+
 The config file can have an absolute path or relative to current directory.
 
 ## Inputs required from the user ##
@@ -26,6 +30,7 @@ The config file can have an absolute path or relative to current directory.
 	
 ## Dependencies ##
 Listed in dependencies.txt
+
 Notes:
 * The pyeda package containing the espresso minimization algorithm requires a python C++ extension.
     * An easy way to install this package without worrying about the extension is to download the wheel from Christoph Gohlke's website:
@@ -37,5 +42,7 @@ Notes:
 
 ## What does it do? ##
 Given a text file with a bunch of logic statements, it applies the espresso minimization algorithm to minimize each statement.
-It returns the minimized form and a list of redundant variables (variables that are not present in the reduced statement).
+
+It returns a text file containing columns with the minimized form and a list of redundant variables (variables that are not present in the reduced statement).
+
 There is no guarantee that the espresso algorithm returns the global minimum, but usually it does, and it is good enough for finding most redundancies.
