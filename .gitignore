@@ -1,0 +1,3 @@
+*.pyc
+venv/
+minimizer_log.txt

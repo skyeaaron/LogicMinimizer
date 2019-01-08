@@ -1,0 +1,4 @@
+mpmath==1.1.0
+pyeda==0.28.0
+PyYAML==3.13
+sympy==1.3
