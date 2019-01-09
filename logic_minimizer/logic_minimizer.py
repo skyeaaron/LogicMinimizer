@@ -55,9 +55,6 @@ input_list, header = hf.csv_to_list(input_file, delimiter = '\t', encoding = inp
 
 hf.print_and_log('input_file loaded', log_file)
 
-if len(set(row[0] for row in input_list)) < len(input_list):
-    hf.print_and_log('Warning, some identifier in the input file is duplicated. Retaining only the final instance.', log_file)
-
 """
 Perform minimizations when possible
 

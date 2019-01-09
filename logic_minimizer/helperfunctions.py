@@ -65,7 +65,7 @@ def input_to_rule(statement):
     replace digits 0-9 with letters a-j
     and replace OR AND NOT with | & ~ 
 	Case-insensitive
-    """    
+    """
     new_statement = statement.lower()
     new_statement = ('|').join(new_statement.split('or'))
     new_statement = ('&').join(new_statement.split('and'))
@@ -79,7 +79,10 @@ def rule_to_output(statement):
     Given a logic statement formatted for sympy ('a | b & ~c')
     output a logic statement in Epic format.
     Replace letters with digits and operators with words.
+    Special exception for expressions that are "True" or "False"
     """
+    if statement=="True" or statement=="False":
+        return statement
     new_statement = letters_to_digits(statement)
     new_statement = ('OR').join(new_statement.split('|'))
     new_statement = ('AND').join(new_statement.split('&'))

@@ -29,7 +29,9 @@ The config file can have an absolute path or a path relative to current director
 	
 	
 ## Dependencies ##
-Listed in dependencies.txt
+Listed in requirements.txt
+
+pip install -r requirements.txt
 
 Notes:
 * The pyeda package containing the espresso minimization algorithm requires a C extension for python.
@@ -37,8 +39,8 @@ Notes:
     * https://www.lfd.uci.edu/~gohlke/pythonlibs/
     * My version is Windows 32-bit, with python 3.7.
     * It needs to match the OS and python version.
+	* pip install pyeda-0.28.0-cp37-cp37m-win32.whl
 * The other dependencies should be straightforward to install
-    * pip install -r dependencies.txt
 
 ## What does it do? ##
 Given a text file with a bunch of logic statements, it applies the espresso minimization algorithm to minimize each statement.
