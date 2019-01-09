@@ -21,7 +21,7 @@ The config file can have an absolute path or a path relative to current director
 	    * input_encoding (defaults to utf-8 if not specified) for the encoding of the input_file
 		* max_variables so that the script will ignore any logic statements that exceed the number of variables specified. (espresso minimization is very fast even with many variables, so I would try without this first.)
 2. Save an input file
-    * Text delimited file with at least 2 columns
+    * Tab-delimited text file with at least 2 columns
 	* First column is a unique identifier for each logic statement
 	* Second column is the logic statement with variables specified by numbers and logical operators specified with words, e.g. 1 AND 2 OR 3
 	    * It will work if second column is already in format a & b | c, but the script will convert back to numbers and words in the output.
@@ -29,7 +29,10 @@ The config file can have an absolute path or a path relative to current director
 	
 	
 ## Dependencies ##
-Listed in requirements.txt
+
+python 3.3+ required, and 3.5+ recommended
+
+Dependencies are listed in requirements.txt
 
 pip install -r requirements.txt
 
