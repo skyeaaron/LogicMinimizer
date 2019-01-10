@@ -7,7 +7,7 @@ Module with functions for logic_minimizer.py
 
 import csv
 import os
-from sympy import sympify, SympifyError
+#from sympy import sympify, SympifyError
 from pyeda.inter import expr, espresso_exprs
 
 

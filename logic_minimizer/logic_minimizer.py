@@ -20,6 +20,7 @@ Input file:
 import sys
 import yaml
 from sympy import sympify, SympifyError
+import sympy
 
 #project modules
 import helperfunctions as hf
@@ -54,6 +55,8 @@ hf.create_log(log_file)
 input_list, header = hf.csv_to_list(input_file, delimiter = '\t', encoding = input_encoding)
 
 hf.print_and_log('input_file loaded', log_file)
+hf.print_and_log('header = ' + str(header), log_file)
+hf.print_and_log('using sympy version ' + sympy.__version__, log_file)
 
 """
 Perform minimizations when possible
@@ -77,7 +80,11 @@ for statement in unique_logics:
         unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
         continue
     else:
-        starting_variables = set(str(x) for x in sympify(rule).free_symbols)
+        try:
+            starting_variables = set(str(x) for x in sympify(rule).free_symbols)
+        except:
+            hf.print_and_log(statement + ' failed on free_symbols', log_file)
+            raise
         if max_variables is None:
             rule_min, ending_variables = hf.minimize_rule(rule)
         elif len(starting_variables) > max_variables:
