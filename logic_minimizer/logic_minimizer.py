@@ -18,8 +18,8 @@ Input file:
 
 #third-party modules
 import sys
-from sympy import sympify
 import yaml
+from sympy import sympify, SympifyError
 
 #project modules
 import helperfunctions as hf
@@ -74,21 +74,29 @@ for statement in unique_logics:
     except:
         reduced_rule_verbose = 'Error, expression could not be translated into logic statement.'
         redundant_variables_verbose = ''
+        unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
+        continue
     else:
-        if max_variables is not None:
-            if len(sympify(rule).free_symbols) > max_variables:
-                reduced_rule_verbose = 'Error, max variables exceeded.'
-                redundant_variables_verbose = ''
-                unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
-                continue
-        try:
-            reduced_rule, redundant_variables = hf.minimize_rule(rule)
-        except:
-            reduced_rule_verbose = 'Error while trying to minimize expression.'
+        starting_variables = set(str(x) for x in sympify(rule).free_symbols)
+        if max_variables is None:
+            rule_min, ending_variables = hf.minimize_rule(rule)
+        elif len(starting_variables) > max_variables:
+            reduced_rule_verbose = 'Error, max variables exceeded.'
             redundant_variables_verbose = ''
+            unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
+            continue
         else:
-            reduced_rule_verbose = hf.rule_to_output(reduced_rule) #convert back to verbose form
-            redundant_variables_verbose = hf.letters_to_digits(', '.join(redundant_variables))
+            rule_min, ending_variables = hf.minimize_rule(rule)
+    redundant_variables = starting_variables - ending_variables
+    redundant_variables_verbose = hf.letters_to_digits(', '.join(redundant_variables))
+    try:
+        reduced_rule = str(sympify(rule_min))
+    except SympifyError as e:
+        reduced_rule_verbose = 'Redundant variables calculated. Minimized expression cannot be parsed--probably too many terms.'
+        hf.log('Error parsing minimized form of logic for rule: ' + statement, log_file)
+        hf.log(str(e), log_file)
+    else:
+        reduced_rule_verbose = hf.rule_to_output(reduced_rule) #convert back to verbose form
     unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
 
 hf.print_and_log('Statements minimized', log_file)

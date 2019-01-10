@@ -7,7 +7,7 @@ Module with functions for logic_minimizer.py
 
 import csv
 import os
-from sympy import sympify
+from sympy import sympify, SympifyError
 from pyeda.inter import expr, espresso_exprs
 
 
@@ -91,24 +91,19 @@ def rule_to_output(statement):
 
 def minimize_rule(rule):
     """
-    Given a rule in form 'a | b & c',
-    return
-        the espresso minimized form of the rule (as a string)
-        and the set of redundant variables (as set of strings. empty set if no redundant vars)
-    Since pyeda auto simplifies certain redundant expressions when converting to expression,
-    use sympify to extract the full list of starting variables first.
+    Given a rule in string form 'a | b & c',
+    return (as strings)
+        the espresso minimized form of the rule
+        and the support (set of variables in the minimized rule)
     """
-    starting_variables = set(str(x) for x in sympify(rule).free_symbols)
     f1 = expr(rule)
     if f1.is_one() or f1.is_zero():
-        ending_variables = set()
         reduced_rule = str(bool(f1))
+        return reduced_rule, set()
     else:
-        f1m, = espresso_exprs(f1.to_dnf())
-        ending_variables = set(str(x) for x in sympify(f1m).free_symbols)
-        reduced_rule = str(sympify(f1m))
-    redundant_variables = starting_variables - ending_variables
-    return reduced_rule, redundant_variables
+        f1_min, = espresso_exprs(f1.to_dnf())
+        return str(f1_min), {str(x) for x in f1_min.support}
+
 
 def create_log(logfilename):
     """
