@@ -84,7 +84,10 @@ for statement in unique_logics:
             starting_variables = set(str(x) for x in sympify(rule).free_symbols)
         except:
             hf.print_and_log(statement + ' failed on free_symbols', log_file)
-            raise
+            reduced_rule_verbose = 'Error, expression could not be translated into logic statement.'
+            redundant_variables_verbose = ''
+            unique_logics[statement] = [reduced_rule_verbose, redundant_variables_verbose]
+            continue
         if max_variables is None:
             rule_min, ending_variables = hf.minimize_rule(rule)
         elif len(starting_variables) > max_variables:
