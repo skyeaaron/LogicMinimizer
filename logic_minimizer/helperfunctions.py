@@ -89,6 +89,34 @@ def rule_to_output(statement):
     new_statement = ('NOT ').join(new_statement.split('~'))
     return new_statement
 
+def suitable_check(rule, max_variables, max_size):
+    """
+    given a string formatted as a | b
+    run checks to make sure it is ok to try to minimize it
+    """
+    try:
+        e = expr(rule, simplify=True)
+        esup = e.support
+    except:
+        return 'Expression could not be translated into logic statement.'
+    if len(esup) > max_variables:
+        return 'Number of variables exceeds the max'
+    try:
+        dnf_size = e.to_dnf().size
+    except:
+        return 'Cannot convert to DNF'
+    if dnf_size > max_size:
+        return 'DNF is too big'
+    if e.is_dnf():
+        return None
+    try:
+        cnf_size = e.to_cnf().size
+    except:
+        return 'Cannot convert to CNF'
+    if cnf_size > max_size:
+        return 'CNF is too big'
+    return None
+
 def minimize_rule(rule):
     """
     Given a rule in string form 'a | b & c',
@@ -97,11 +125,13 @@ def minimize_rule(rule):
         and the support (set of variables in the minimized rule)
     """
     f1 = expr(rule)
+    print(f1)
     if f1.is_one() or f1.is_zero():
         reduced_rule = str(bool(f1))
         return reduced_rule, set()
     else:
         f1_min, = espresso_exprs(f1.to_dnf())
+        print('minimized')
         return str(f1_min), {str(x) for x in f1_min.support}
 
 

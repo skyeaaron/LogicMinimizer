@@ -19,7 +19,8 @@ The config file can have an absolute path or a path relative to current director
 		* log_file where log should be saved
     * optional arguments: 
 	    * input_encoding (defaults to utf-8 if not specified) for the encoding of the input_file
-		* max_variables so that the script will ignore any logic statements that exceed the number of variables specified. (espresso minimization is very fast even with many variables, so I would try without this first.)
+		* max_variables (defaults to 55 if not specified) to ingore any logic statements with more variables
+		* max_size (defaults to 5000 if not specified) to ignore any logic statements whose dnf or cnf statement size exceed max_size.
 2. Save an input file
     * Tab-delimited text file with at least 2 columns
 	* First column is a unique identifier for each logic statement
