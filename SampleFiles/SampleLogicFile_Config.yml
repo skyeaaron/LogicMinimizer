@@ -7,8 +7,11 @@ output_file: ..\SampleFiles\SampleLogicFile_Minimized.txt
 #specify log_file log filepath and name
 log_file: ..\SampleFiles\minimizer_log.txt
 
+#specify temp_file log filepath and name
+temp_file: ..\SampleFiles\temp_output.txt
+
 #optional: specify input_encoding encoding of the input file. defaults to utf-8.
 input_encoding: utf-8
 
-#optional: specify max_variables. defaults to None (no max). else ignores expressions with more variables
-max_variables: 
+#optional: specify max virtual memory % increase to allow while analyzing large statement. defaults to 15.
+vm_limit: 15

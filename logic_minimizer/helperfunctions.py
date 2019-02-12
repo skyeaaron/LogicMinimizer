@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 Module with functions for logic_minimizer.py
-
-@author: SAaron
 """
 
 import csv
 import os
-#from sympy import sympify, SympifyError
-from pyeda.inter import expr, espresso_exprs
+from pyeda.inter import expr
 
-
-def csv_to_list(filename, header = True, delimiter = "\t", encoding = 'utf-8', quoting = csv.QUOTE_MINIMAL):
+def csv_to_list(filename, header = True, delimiter = '\t', encoding = 'utf-8', quoting = csv.QUOTE_MINIMAL):
     """
     read delimited file
     if header is True then returns first row as header
@@ -20,12 +16,9 @@ def csv_to_list(filename, header = True, delimiter = "\t", encoding = 'utf-8', q
         csv_f = csv.reader(f, delimiter = delimiter, quoting = quoting)
         if header:
             output_header = next(csv_f)
-            output_data = [row for row in csv_f]
-            return output_data, output_header
+            return list(csv_f), output_header
         else:
-            output_header = None
-            output_data= [row for row in csv_f]
-            return output_data
+            return list(csv_f)
 
 def write_list_to_csv(filename, output, delimiter = '\t', newline = '\n'):
     """
@@ -72,6 +65,7 @@ def input_to_rule(statement):
     new_statement = ('~').join(new_statement.split('not'))
     #replace digits with letters
     new_statement = digits_to_letters(new_statement)
+    new_statement = new_statement.strip()
     return new_statement
 
 def rule_to_output(statement):
@@ -89,7 +83,7 @@ def rule_to_output(statement):
     new_statement = ('NOT ').join(new_statement.split('~'))
     return new_statement
 
-def suitable_check(rule, max_variables, max_size):
+def suitable_check(rule):
     """
     given a string formatted as a | b
     run checks to make sure it is ok to try to minimize it
@@ -98,41 +92,15 @@ def suitable_check(rule, max_variables, max_size):
         e = expr(rule, simplify=True)
         esup = e.support
     except:
-        return 'Expression could not be translated into logic statement.'
-    if len(esup) > max_variables:
-        return 'Number of variables exceeds the max'
-    try:
-        dnf_size = e.to_dnf().size
-    except:
-        return 'Cannot convert to DNF'
-    if dnf_size > max_size:
-        return 'DNF is too big'
-    if e.is_dnf():
-        return None
-    try:
-        cnf_size = e.to_cnf().size
-    except:
-        return 'Cannot convert to CNF'
-    if cnf_size > max_size:
-        return 'CNF is too big'
-    return None
-
-def minimize_rule(rule):
-    """
-    Given a rule in string form 'a | b & c',
-    return (as strings)
-        the espresso minimized form of the rule
-        and the support (set of variables in the minimized rule)
-    """
-    f1 = expr(rule)
-    print(f1)
-    if f1.is_one() or f1.is_zero():
-        reduced_rule = str(bool(f1))
-        return reduced_rule, set()
-    else:
-        f1_min, = espresso_exprs(f1.to_dnf())
-        print('minimized')
-        return str(f1_min), {str(x) for x in f1_min.support}
+        if rule == '|' or rule == '&' or rule == '~':
+            return 'And/Or/Not'
+        elif 'at least' in rule.lower() or 'at most' in rule.lower() or 'exactly' in rule.lower():
+            return 'At least/At most/Exactly'
+        else:
+            return 'Invalid statement'
+    if len(esup) > 30:
+        return 'Big statement'
+    return 'Small statement'
 
 
 def create_log(logfilename):
