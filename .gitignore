@@ -1,6 +1,5 @@
 *.pyc
 venv/
 Configs/
-Misc/
-minimizer_log.txt
-*.whl
+Inputs/
+Outputs/

@@ -1,33 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Module with functions for logic_minimizer.py
+For converting between 1 and 2 form and a & b form
+For checking whether statements are small/big/invalid
+For getting the list of variables
 """
 
-import csv
-import os
 from pyeda.inter import expr
-
-def csv_to_list(filename, header = True, delimiter = '\t', encoding = 'utf-8', quoting = csv.QUOTE_MINIMAL):
-    """
-    read delimited file
-    if header is True then returns first row as header
-    """
-    with open(filename, 'r', encoding = encoding) as f:
-        csv_f = csv.reader(f, delimiter = delimiter, quoting = quoting)
-        if header:
-            output_header = next(csv_f)
-            return list(csv_f), output_header
-        else:
-            return list(csv_f)
-
-def write_list_to_csv(filename, output, delimiter = '\t', newline = '\n'):
-    """
-    Save output list to csv
-    """
-    with open(filename, 'w+', newline = newline) as f:
-        csv_f = csv.writer(f, delimiter = delimiter)
-        csv_f.writerows(output)
-    return None
 
 def digits_to_letters(string):
     """
@@ -49,7 +27,7 @@ def letters_to_digits(string):
         new_string = new_string.replace(key, alphabet[key])
     return new_string
 
-def input_to_rule(statement):
+def input_to_rule(statement, nots = '~'):
     """
     Convert logic statements from numeric verbose format to sympy format
 		e.g. format_as_logic('13 AND 2') = 'bd & c'
@@ -62,13 +40,13 @@ def input_to_rule(statement):
     new_statement = statement.lower()
     new_statement = ('|').join(new_statement.split('or'))
     new_statement = ('&').join(new_statement.split('and'))
-    new_statement = ('~').join(new_statement.split('not'))
+    new_statement = (nots).join(new_statement.split('not'))
     #replace digits with letters
     new_statement = digits_to_letters(new_statement)
     new_statement = new_statement.strip()
     return new_statement
 
-def rule_to_output(statement):
+def rule_to_output(statement, nots = '~'):
     """
     Given a logic statement formatted for sympy ('a | b & ~c')
     output a logic statement in Epic format.
@@ -80,13 +58,14 @@ def rule_to_output(statement):
     new_statement = letters_to_digits(statement)
     new_statement = ('OR').join(new_statement.split('|'))
     new_statement = ('AND').join(new_statement.split('&'))
-    new_statement = ('NOT ').join(new_statement.split('~'))
+    new_statement = ('NOT ').join(new_statement.split(nots))
     return new_statement
 
-def suitable_check(rule):
+def categorize_rule(rule):
     """
     given a string formatted as a | b
     run checks to make sure it is ok to try to minimize it
+    sort it into a category
     """
     try:
         e = expr(rule, simplify=True)
@@ -102,27 +81,20 @@ def suitable_check(rule):
         return 'Big statement'
     return 'Small statement'
 
+def variables(rule):
+    """
+    given a string formatted as a | b
+    return a set of the variables as strings
+    """
+    if rule in ('True', 'False'):
+        return set()
+    else:
+        return set(str(x) for x in expr(rule, simplify=False).support)
 
-def create_log(logfilename):
+def variables_to_digits(variables):
     """
-    overwrite or create logfile
+    given a set of variables {'a', 'b', 'aa'}
+    return them as digits {'0', '1', '00'}
     """
-    with open(logfilename, 'w+') as f:
-        f.write('log file created' + os.linesep)
-
-def log(message, logfilename):
-    """
-    write message to log file
-    """
-    with open(logfilename, 'a') as f:
-        f.write(message + os.linesep)
-    return None
-
-def print_and_log(message, logfilename):
-    """
-    print message, and
-    write message to log file
-    """
-    print(message)
-    log(message, logfilename)
-    return None
+    return set(letters_to_digits(x) for x in variables)
+    

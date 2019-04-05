@@ -17,10 +17,10 @@ The config file can have an absolute path or a path relative to current director
         * path to input_file
 		* output_file where output should be saved
 		* log_file where log should be saved
+		* temp_file where the results of any big statements can be temporarily stored during processing
     * optional arguments: 
 	    * input_encoding (defaults to utf-8 if not specified) for the encoding of the input_file
-		* max_variables (defaults to 55 if not specified) to ingore any logic statements with more variables
-		* max_size (defaults to 5000 if not specified) to ignore any logic statements whose dnf or cnf statement size exceed max_size.
+		* timeout (defaults to unlimited if not specified) to specify the maximum seconds to spend when trying to minimize a big statement 
 2. Save an input file
     * Tab-delimited text file with at least 2 columns
 	* First column is a unique identifier for each logic statement
@@ -39,16 +39,26 @@ pip install -r requirements.txt
 
 Notes:
 * The pyeda package containing the espresso minimization algorithm requires a C extension for python.
-    * An easy way to install this package without worrying about the extension is to download the wheel from Christoph Gohlke's website:
+    * An easy way to install this package on Windows without worrying about the extension is to download the wheel from Christoph Gohlke's website:
     * https://www.lfd.uci.edu/~gohlke/pythonlibs/
     * My version is Windows 32-bit, with python 3.7.
     * It needs to match the OS and python version.
 	* pip install pyeda-0.28.0-cp37-cp37m-win32.whl
+	* To install on Linux, download the egg from github and install
 * The other dependencies should be straightforward to install
 
 ## What does it do? ##
-Given a text file with a bunch of logic statements, it applies the espresso minimization algorithm to minimize each statement.
+Given a text file with a bunch of logic statements in the form "1 AND 2 OR 3", it applies the espresso minimization algorithm, as implemented by PyEDA, to minimize each statement.
 
-It returns a text file containing columns with the minimized form and a list of redundant variables (variables that are not present in the reduced statement).
+It returns a text file containing columns with a list of redundant variables (variables that are not present in the reduced statement) and a classification.
 
 There is no guarantee that the espresso algorithm returns the global minimum, but usually it does, and it is good enough for finding most redundancies.
+
+It might even be guaranteed that espresso produces an expression with no redundant variables--if anyone knows, please let me know--saaron at bwh dot harvard dot edu.
+
+## Warning ##
+Very large statements can cause a lot of memory to be used and may segfault because of an unknown problem with espresso.
+
+Big statements are thus run in a child process so that if the child process is killed, the parent process can continue. It is expected that some very large statements can not be minimized even with large amounts of memory.
+
+When running the minimizer on Windows, if a child process is killed, the Windows debugger may issue a pop-up. This requires the user to respond to the dialogue box in order for the script to continue.
