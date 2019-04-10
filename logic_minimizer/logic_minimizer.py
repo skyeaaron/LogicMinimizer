@@ -7,7 +7,7 @@ Takes a yaml config file specifying
     log_file (required)
     temp_file (required for storing output of large expressions)
     input_encoding (optional)
-    vm_limit (optional, percent increase cap on virtual memory)
+    timeout (optional, max seconds to spend on a big statement)
 Input file:
     tab-delimited text file with headers
     first column contains statement identifiers
@@ -21,12 +21,10 @@ import yaml
 import subprocess
 import logging
 from os import linesep
-#import psutil
 from time import time
 
 #project modules
 import processfiles as pf
-#import format_expressions as fe
 import logic_statement as l
 from minimize_expression import minimize_rule
 
@@ -41,7 +39,6 @@ if len(sys.argv) == 2:
 else:
     sys.exit('Incorrect number of arguments passed. Please specify config file.')
 
-#config_file = 'Demo_Config.yml'
 
 """
 Load settings from config file
@@ -135,6 +132,7 @@ for s in ulogics:
             #record this in the result and go to the next rule
             ulogics[s].result = 'Wrong rule found in temp file, suggesting issue with the subprocess or temp file. Check log.'
             logging.info(ulogics[s].result)
+            continue
         else:
             ulogics[s].rule_min = sub_output['expression']
             ulogics[s].rule_min_variables = set(x for x in sub_output['support'])
@@ -167,3 +165,12 @@ logging.info('Output saved')
 end_time = time()
 logging.info('End time: ' + str(end_time))
 logging.info('Total time in seconds: ' + str(end_time-start_time))
+
+"""
+Count number of each result
+"""
+counts = dict()
+for row in output[1:]:
+  counts[row[-1]] = counts.get(row[-1], 0) + 1
+  
+logging.info('Counts of each result:\n' + '\n'.join([key + ': ' + str(counts[key]) for key in counts]))

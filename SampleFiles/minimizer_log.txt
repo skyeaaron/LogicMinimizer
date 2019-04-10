@@ -1,17 +1,14 @@
 INFO:root:Log file created
-INFO:root:Start time: 1554497286.9625475
+INFO:root:Start time: 1554918913.9469764
 INFO:root:input_file loaded
 INFO:root:header = ['Identifier', 'Logic']
-INFO:root:Minimizing 1 AND 2 AND 3
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing 1 AND 2
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing 1 AND 2 AND 3 AND NOT 4 AND NOT 5 AND 6 AND NOT 7 AND NOT 8 AND NOT 9 AND NOT 10 AND NOT 11 AND 12 AND 13
+INFO:root:Minimizing 1
 INFO:root:Small statement
 INFO:root:No Redundancy
 INFO:root:Minimizing 1 OR 2 OR 3
+INFO:root:Small statement
+INFO:root:No Redundancy
+INFO:root:Minimizing 1 AND 2 AND 3 AND NOT 4 AND NOT 5 AND NOT 6 AND NOT 7 AND NOT 8 AND NOT 9
 INFO:root:Small statement
 INFO:root:No Redundancy
 INFO:root:Minimizing (1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17) AND (18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 OR 25 OR 26 OR 27 OR 28 OR 29 OR 30 OR 31 OR 32 OR 33 OR 34) AND ((18 AND 35 AND 36 AND 37 AND 38) OR (19 AND 39 AND 40 AND 41 AND 42) OR (20 AND 43 AND 44 AND 45 AND 46) OR (21 AND 47 AND 48 AND 49 AND 50) OR (22 AND 51 AND 52 AND 53 AND 54) OR (23 AND 55 AND 56 AND 57 AND 58) OR (24 AND 59 AND 60 AND 61 AND 62) OR (25 AND 63 AND 64 AND 65 AND 66) OR (26 AND 67 AND 68 AND 69 AND 70) OR (27 AND 71 AND 72 AND 73 AND 74) OR (28 AND 75 AND 76 AND 77 AND 78) OR (29 AND 79 AND 80 AND 81 AND 82) OR (30 AND 83 AND 84 AND 85 AND 86) OR (31 AND 87 AND 88 AND 89 AND 90) OR (32 AND 91 AND 92 AND 93 AND 94) OR (33 AND 95 AND 96 AND 97 AND 98) OR (34 AND 99 AND 100 AND 101 AND 102))
@@ -26,27 +23,42 @@ Traceback (most recent call last):
     output=stdout, stderr=stderr)
 subprocess.CalledProcessError: Command '['python', 'minimize_expression.py', '(b | c | d | e | f | g | h | i | j | ba | bb | bc | bd | be | bf | bg | bh) & (bi | bj | ca | cb | cc | cd | ce | cf | cg | ch | ci | cj | da | db | dc | dd | de) & ((bi & df & dg & dh & di) | (bj & dj & ea & eb & ec) | (ca & ed & ee & ef & eg) | (cb & eh & ei & ej & fa) | (cc & fb & fc & fd & fe) | (cd & ff & fg & fh & fi) | (ce & fj & ga & gb & gc) | (cf & gd & ge & gf & gg) | (cg & gh & gi & gj & ha) | (ch & hb & hc & hd & he) | (ci & hf & hg & hh & hi) | (cj & hj & ia & ib & ic) | (da & id & ie & if & ig) | (db & ih & ii & ij & ja) | (dc & jb & jc & jd & je) | (dd & jf & jg & jh & ji) | (de & jj & baa & bab & bac))', '../SampleFiles/temp_output.txt']' returned non-zero exit status 3221225477.
 INFO:root:Subprocess returned a non-zero exit code. Expression was not minimized.
+INFO:root:Minimizing AT LEAST 2 OF (1:5) AND 3
+INFO:root:At least/At most/Exactly
+INFO:root:N/A
 INFO:root:Minimizing (1 AND ((2 AND 3 AND 4 AND 5 AND 6) OR (6 AND 7) OR (4 AND 5 AND 8) OR (3 AND 5 AND 8))) AND NOT (9 OR 10 OR 11 OR 12 OR 13 OR 14) AND 15
 INFO:root:Small statement
 INFO:root:No Redundancy
+INFO:root:Minimizing 23 OR NOT 23
+INFO:root:Small statement
+INFO:root:Always True
 INFO:root:Minimizing 1 OR (2 AND 1)
 INFO:root:Small statement
 INFO:root:Redundancy
-INFO:root:Minimizing 1 AND 2 AND 3 AND NOT 4 AND NOT 5 AND NOT 6 AND NOT 7 AND NOT 8 AND NOT 9
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11
+INFO:root:Minimizing 1 AND 2 AND 3 AND NOT 4 AND NOT 5 AND 6 AND NOT 7 AND NOT 8 AND NOT 9 AND NOT 10 AND NOT 11 AND 12 AND 13
 INFO:root:Small statement
 INFO:root:No Redundancy
 INFO:root:Minimizing 1 AND NOT 2
 INFO:root:Small statement
 INFO:root:No Redundancy
-INFO:root:Minimizing 1
+INFO:root:Minimizing (1 OR 2) AND 3
 INFO:root:Small statement
 INFO:root:No Redundancy
-INFO:root:Minimizing 1 AND NOT 1
+INFO:root:Minimizing 1 AND 2
 INFO:root:Small statement
-INFO:root:Always False
+INFO:root:No Redundancy
+INFO:root:Minimizing 55 or 1
+INFO:root:Small statement
+INFO:root:No Redundancy
+INFO:root:Minimizing 1 AND (2 OR 3)
+INFO:root:Small statement
+INFO:root:No Redundancy
+INFO:root:Minimizing 1 AND 2 AND 3
+INFO:root:Small statement
+INFO:root:No Redundancy
+INFO:root:Minimizing 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11
+INFO:root:Small statement
+INFO:root:No Redundancy
 INFO:root:Minimizing 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 20 OR 21 OR 22 OR 23 OR 24 OR 25 OR 26 OR 27 OR 28 OR 29 OR 30 OR 31 OR 32 OR 33 OR 34
 INFO:root:Big statement
 INFO:root:Subprocess result:
@@ -54,28 +66,23 @@ Minimizing b | c | d | e | f | g | h | i | j | ba | bb | bc | bd | be | bf | bg 
 Minimized and saved
 End of subprocess result.
 INFO:root:No Redundancy
-INFO:root:Minimizing 1 AND (2 OR 3)
+INFO:root:Minimizing 1 AND NOT 1
 INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing 55 or 1
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing (1 OR 2) AND 3
-INFO:root:Small statement
-INFO:root:No Redundancy
-INFO:root:Minimizing AT LEAST 2 OF (1:5) AND 3
-INFO:root:At least/At most/Exactly
-INFO:root:N/A
-INFO:root:Minimizing 23 OR NOT 23
-INFO:root:Small statement
-INFO:root:Always True
+INFO:root:Always False
 INFO:root:Minimizing (1 OR 2) AND (3 OR 4) AND (5 OR 6) AND (7 OR 8) AND (9 OR 10) AND (11 OR 12) AND (13 OR 14) AND (15 OR 16) AND (17 OR 18) AND (19 OR 20) AND (21 OR 22) AND (23 OR 24) AND (NOT 1 OR 2)
 INFO:root:Small statement
 INFO:root:Redundancy
+INFO:root:Minimizing 1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9
+INFO:root:Small statement
+INFO:root:No Redundancy
 INFO:root:Statements minimized
 INFO:root:Output saved
-INFO:root:End time: 1554497311.3885477
-INFO:root:Total time in seconds: 24.426000118255615
+INFO:root:End time: 1554918936.7550604
+INFO:root:Total time in seconds: 22.80808401107788
+INFO:root:Counts of each result:
+No Redundancy: 19
+Redundancy: 2
+Always False: 1
+Always True: 1
+N/A: 1
+Subprocess returned a non-zero exit code. Expression was not minimized.: 1
