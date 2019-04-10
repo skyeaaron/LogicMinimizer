@@ -1,3 +1,3 @@
 input_rule: b | c | d | e | f | g | h | i | j | ba | bb | bc | bd | be | bf | bg | bh | bi | bj | ca | cb | cc | cd | ce | cf | cg | ch | ci | cj | da | db | dc | dd | de
 expression: Or(b, c, d, e, f, g, h, i, j, ba, bb, bc, bd, be, bf, bg, bh, bi, bj, ca, cb, cc, cd, ce, cf, cg, ch, ci, cj, da, db, dc, dd, de)
-support: ['i', 'cf', 'db', 'bc', 'de', 'g', 'f', 'h', 'cc', 'dc', 'bj', 'cd', 'bb', 'bi', 'da', 'j', 'bh', 'ba', 'bd', 'bf', 'ca', 'b', 'be', 'cb', 'e', 'cg', 'dd', 'ch', 'bg', 'ci', 'cj', 'c', 'ce', 'd']
+support: ['dd', 'cb', 'h', 'j', 'bd', 'dc', 'bi', 'db', 'ba', 'da', 'de', 'cj', 'cc', 'd', 'g', 'e', 'ch', 'bc', 'bf', 'bg', 'cg', 'cf', 'bj', 'be', 'b', 'c', 'ci', 'bb', 'bh', 'f', 'ce', 'i', 'ca', 'cd']
