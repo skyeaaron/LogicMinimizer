@@ -48,6 +48,7 @@ with open(config_file, 'r') as f:
     
 input_file = config_dict['input_file']    
 output_file = config_dict['output_file']
+counts_output_file = config_dict['counts_output_file']
 temp_file = config_dict['temp_file']
 log_file = config_dict['log_file']
 if 'input_encoding' in config_dict:
@@ -169,11 +170,17 @@ logging.info('Total time in seconds: ' + str(end_time-start_time))
 """
 Count number of each result
 """
-counts = dict()
+result_counts = dict()
 type_counts = dict()
 for row in output[1:]:
-  counts[row[-1]] = counts.get(row[-1], 0) + 1
+  result_counts[row[-1]] = result_counts.get(row[-1], 0) + 1
   type_counts[row[-3]] = type_counts.get(row[-3], 0) + 1
-  
-logging.info('Counts of each result:\n' + '\n'.join([key + ': ' + str(counts[key]) for key in counts]))
+
+with open(counts_output_file, 'w') as f:
+    f.write('Total time in seconds: ' + str(end_time-start_time) + '\n\n')
+    f.write('Counts of each result:\n' + '\n'.join([key + ': ' + str(result_counts[key]) for key in result_counts]))
+    f.write('\n\n')
+    f.write('Counts of each type:\n' + '\n'.join([key + ': ' + str(type_counts[key]) for key in type_counts]))
+
+logging.info('Counts of each result:\n' + '\n'.join([key + ': ' + str(result_counts[key]) for key in result_counts]))
 logging.info('Counts of each type:\n' + '\n'.join([key + ': ' + str(type_counts[key]) for key in type_counts]))

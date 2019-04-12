@@ -16,6 +16,7 @@ The config file can have an absolute path or a path relative to current director
     * required arguments:
         * path to input_file
 		* output_file where output should be saved
+		* counts_output_file where summary counts should be saved
 		* log_file where log should be saved
 		* temp_file where the results of any big statements can be temporarily stored during processing
     * optional arguments: 

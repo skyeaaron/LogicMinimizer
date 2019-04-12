@@ -4,6 +4,9 @@ input_file: ../SampleFiles/SampleLogicFile.txt
 #specify output_file output filepath and name
 output_file: ../SampleFiles/SampleLogicFile_Minimized.txt
 
+#specify where to save counts of results filepath and name
+counts_output_file: ../SampleFiles/SampleLogicFile_Counts.txt
+
 #specify log_file log filepath and name
 log_file: ../SampleFiles/minimizer_log.txt
 
@@ -14,4 +17,4 @@ temp_file: ../SampleFiles/temp_output.txt
 input_encoding: utf-8
 
 #optional: specify max time in seconds to spend on each big statement. default is no limit.
-#timeout: 15
+timeout: 20
