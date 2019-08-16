@@ -1,0 +1,14 @@
+Total time in seconds: 23.415908813476562
+
+Counts of each result:
+No Redundancy: 19
+Redundancy: 2
+Always False: 1
+Always True: 1
+N/A: 1
+Subprocess exceeded timeout. Expression was not minimized.: 1
+
+Counts of each type:
+Small statement: 22
+At least/At most/Exactly: 1
+Big statement: 2

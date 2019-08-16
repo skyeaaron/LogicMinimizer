@@ -101,7 +101,7 @@ unique_statements = set(row[1] for row in input_list)
 #intialize dictionary of LogicStatements indexed by their string form
 ulogics = {x: l.LogicStatement(x, 'verbose') for x in unique_statements}
 
-pf.print_and_log('Minimizing statements', log_file)
+logging.info('Minimizing ' + str(len(unique_statements)) + ' unique statements')
 
 #loop through all statements s in ulogics
 for s in ulogics:

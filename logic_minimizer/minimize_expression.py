@@ -47,6 +47,6 @@ if __name__ == '__main__':
         rule = sys.argv[1]
         temp_file = sys.argv[2]
     else:
-        sys.exit('Incorrect number of arguments passed. Please specify config file and temp file.')
+        sys.exit('Incorrect number of arguments passed. Please specify rule and temp file.')
 
     minimize_rule_and_save(rule, temp_file)

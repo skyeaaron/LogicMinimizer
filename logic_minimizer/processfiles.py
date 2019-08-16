@@ -2,7 +2,6 @@
 """
 Module with functions for logic_minimizer.py
 Read and write csv
-Create simple logs
 """
 
 import csv
@@ -30,26 +29,3 @@ def write_list_to_csv(filename, output, delimiter = '\t', newline = '\n'):
         csv_f.writerows(output)
     return None
 
-def create_log(logfilename):
-    """
-    overwrite or create logfile
-    """
-    with open(logfilename, 'w+') as f:
-        f.write('log file created' + os.linesep)
-
-def log(message, logfilename):
-    """
-    write message to log file
-    """
-    with open(logfilename, 'a') as f:
-        f.write(message + os.linesep)
-    return None
-
-def print_and_log(message, logfilename):
-    """
-    print message, and
-    write message to log file
-    """
-    print(message)
-    log(message, logfilename)
-    return None
